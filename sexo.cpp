@@ -6,11 +6,11 @@
 #include <fstream>
 #include "Funciones.h"
 #include <time.h>
+#include "Funciones.cpp"
 
 using namespace std;
 
 // Implementación de los métodos de la clase Sexo
-
 /**
  * @brief Constructor que inicializa la clase leyendo un archivo de entrada.
  * @param archivo La ruta del archivo a leer.
@@ -44,7 +44,7 @@ int Sexo::contarFrecuencia(char caracter, int posicion) {
 string Sexo::sexo(const string& padre1, const string& padre2) {
     srand(static_cast<unsigned>(time(0)));
     dh;
-    mdh;
+    mdh = 0;
     dp1 = contarDiferencias(padre1,dataset,0.8);
     dp2 = contarDiferencias(padre2,dataset,0.8);
 
@@ -57,7 +57,7 @@ string Sexo::sexo(const string& padre1, const string& padre2) {
 
     int longitud = padre1.size();
 
-    for(int j = 0; j < 6; j++){
+    for(int j = 0; j < 100000; j++){
         for (int i = 0; i < longitud; i++) {
             char char1 = padre1[i];
             char char2 = padre2[i];
@@ -99,3 +99,20 @@ string Sexo::sexo(const string& padre1, const string& padre2) {
     return mhijo;
 }
 
+main(){
+    std::string padre1 = "GGAGAATTATTGTGTTTCCAGGTTGCTGGCAGCGCGCTTGAACGATTAATCAACACGTTGCGTAAAACAGGTCAACTTGTCCAACGTCAACTATCGTCAGCAACGAGGCGGTCCCACGGAAATCTTTAGATGAAGGAAAGCTATCAGTCGGACTCCGAAAGCTGTTTAGTTACCTTGCTTATATCCTACGGATGTACGCGTCTCCTGTCATATCTTGCTACCCACAATGTTTTTTACTGTTGATATCTCGAGATGGGCGAGGGCGAACATATAGCGCTTGCTGGGCCGGTGGGCGGATCA";
+    std::string padre2 = "TGGGACTCAACCCGGAAAGGACCGGTTACGTTCACCGAAACAAAGCGAACTTACGACAAAATCCGGTCACTTAACCGGTTACAGTGTACGTGGTACCGCTTCGCGGGAGGGGCCGTATGGCTGGTACGCGGCCCAGAGTCAGACGGTTCTAGGCGAATTGCGGCGTCGATTCCTAGAATCATGTAAACAAAACGCGCACCAAGCGCCAAATACCCGCCACAGAATAACAGTGCATATGTCTATTCAAGTGGAAGGGCCGTATAGCTTTATCAGGTCCCGTAACCGCGGGCTGTATGTTGA";
+    string dataset = "D:/Joako/Desktop/Archivos de la U/SistemasAdaptativos/SA-FFPS-Dou/Dataset/100-300-001.txt";
+    std::vector<std::string> ifp = leerArchivo(dataset);
+    
+    Sexo sexo_obj(dataset);
+    
+    std::string hijo = sexo_obj.sexo(padre1, padre2);
+    
+    cout << "Hijo generado: " << hijo << endl;
+    cout << "padre1 " << contarDiferencias(padre1,ifp,0.8) << endl;
+    cout << "padre2 " << contarDiferencias(padre2,ifp,0.8) << endl;
+    cout << contarDiferencias(hijo, ifp ,0.8) << endl;
+    
+    return 0;
+    }
