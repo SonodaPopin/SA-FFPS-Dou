@@ -43,8 +43,8 @@ int Sexo::contarFrecuencia(char caracter, int posicion) {
  */
 string Sexo::sexo(const string& padre1, const string& padre2) {
     srand(static_cast<unsigned>(time(0)));
-    dph;
-    mdph;
+    dh;
+    mdh;
     dp1 = contarDiferencias(padre1,dataset,0.8);
     dp2 = contarDiferencias(padre2,dataset,0.8);
 
@@ -84,14 +84,14 @@ string Sexo::sexo(const string& padre1, const string& padre2) {
                 hijo += masp;
             }
         }
-        dph = contarDiferencias(hijo,dataset,0.8);
+        dh = contarDiferencias(hijo,dataset,0.8);
 
-        if (dph > dpdou) {
+        if (dh > dpdou) {
             return hijo;
         }
 
-        if (dph > mdph) {
-            mdph = dph;
+        if (dh > mdh) {
+            mdh = dh;
             mhijo = hijo;
         }
     }
