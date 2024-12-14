@@ -17,12 +17,14 @@ bool Hybrid::checkTime() {
 }
 
 void Hybrid::selecMejores(int mejor) {
-    for (int i = 0; i < valoresN.size(); i++) {
-        if (valoresN[i] = mejor){
+    for (int i = 0; i < valoresN.size();) {
+        if (valoresN[i] == mejor){
             valoresTOP.push_back(valoresN[i]);
             cadenasTOP.push_back(cadenasN[i]);
             valoresN.erase(valoresN.begin() + i);
             cadenasN.erase(cadenasN.begin() + i);
+        }else{
+            i++;
         }
     }
     int j = 0;
