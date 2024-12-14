@@ -13,6 +13,9 @@ class Sexo {
 private:
     std::string ifp;                         ///< Ruta del archivo de entrada.
     std::vector<std::string> dataset;        ///< Dataset con las cadenas para cálculo de frecuencias.
+    std::vector<std::string> hijos;
+    double alpha;
+    int dpdou, dph, mdph, dp1, dp2;
 
     /**
      * @brief Cuenta la frecuencia de un carácter específico en una posición dada dentro del dataset.

@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <fstream>
 #include "Funciones.h"
+#include <time.h>
 
 using namespace std;
 
@@ -41,22 +42,60 @@ int Sexo::contarFrecuencia(char caracter, int posicion) {
  * @return La cadena resultante que representa al "hijo".
  */
 string Sexo::sexo(const string& padre1, const string& padre2) {
+    srand(static_cast<unsigned>(time(0)));
+    dph;
+    mdph;
+    dp1 = contarDiferencias(padre1,dataset,0.8);
+    dp2 = contarDiferencias(padre2,dataset,0.8);
+
+    dpdou = (dp1 < dp2) ? dp2 : dp1;
+
     string hijo;
+    string mhijo;
+
+    alpha = 0.95;
+
     int longitud = padre1.size();
 
-    for (int i = 0; i < longitud; i++) {
-        char char1 = padre1[i];
-        char char2 = padre2[i];
+    for(int j = 0; j < 6; j++){
+        for (int i = 0; i < longitud; i++) {
+            char char1 = padre1[i];
+            char char2 = padre2[i];
 
-        int frecuencia1 = contarFrecuencia(char1, i);
-        int frecuencia2 = contarFrecuencia(char2, i);
+            char menosp;
+            char masp;
 
-        if (frecuencia1 < frecuencia2) {
-            hijo += char1;
-        } else {
-            hijo += char2;
+            int frecuencia1 = contarFrecuencia(char1, i);
+            int frecuencia2 = contarFrecuencia(char2, i);
+            
+            if (frecuencia1 < frecuencia2) {
+                menosp = char1;
+                masp = char2;
+            } else {
+                menosp = char2;
+                masp = char1;
+            }
+
+            double p = static_cast<double>(rand()) / RAND_MAX;
+            if (p < alpha) {
+                
+                hijo += menosp;
+            } else {
+                hijo += masp;
+            }
+        }
+        dph = contarDiferencias(hijo,dataset,0.8);
+
+        if (dph > dpdou) {
+            return hijo;
+        }
+
+        if (dph > mdph) {
+            mdph = dph;
+            mhijo = hijo;
         }
     }
 
-    return hijo;
+    return mhijo;
 }
+
