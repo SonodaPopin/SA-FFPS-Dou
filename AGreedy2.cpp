@@ -1,4 +1,3 @@
-#include "AGreedy2.h"
 #include <iostream>
 #include <vector>
 #include <cstdlib>
@@ -9,9 +8,8 @@
 #include <chrono>
 #include <algorithm>
 #include <random>
+#include "AGreedy2.h"
 #include "Funciones.h"
-
-// Implementación de los métodos privados
 
 std::vector<char> AGreedy2::obtenerCaracteresFrecuentes() {
     std::unordered_map<char, int> frecuencia;
@@ -71,8 +69,6 @@ std::string AGreedy2::ejecutar() {
     return seleccionada;
 }
 
-// Implementación de los métodos públicos
-
 AGreedy2::AGreedy2(const std::string& ifp, float alpha)
     : ifp(ifp), alpha(alpha), gen(std::random_device{}()) {
     datos = leerArchivo(ifp);
@@ -80,13 +76,12 @@ AGreedy2::AGreedy2(const std::string& ifp, float alpha)
     srand(static_cast<unsigned>(time(0)));
 }
 
-std::vector<std::string> AGreedy2::generarSolucion() {
+std::vector<std::string> AGreedy2::generarSolucion(int sizeN) {
     std::vector<std::string> sols;
-    sols.resize(100);
-    for (int i = 0; i < 100; i++) {
+    sols.resize(sizeN);
+    for (int i = 0; i < sizeN; i++) {
         gen.seed(std::random_device{}());
         sols[i] = ejecutar();
-        int calidad = contarDiferencias(sols[i], datos, 0.8);
     }
     return sols;
 }

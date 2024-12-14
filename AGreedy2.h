@@ -15,7 +15,6 @@
  */
 class AGreedy2 {
 private:
-    // Variables miembro privadas
     std::string ifp;                          ///< Ruta del archivo de entrada
     float alpha;                              ///< Parámetro probabilístico para la selección de caracteres
     float calidad;                            ///< Calidad de la solución generada
@@ -36,7 +35,6 @@ private:
     std::string ejecutar();
 
 public:
-    // Variables miembro públicas
     std::vector<std::string> datos;           ///< Contenedor con las líneas del archivo de entrada
 
     /**
@@ -50,7 +48,7 @@ public:
      * @brief Genera una solución utilizando el algoritmo y la devuelve.
      * @return Un vector con las soluciones generadas por el algoritmo.
      */
-    std::vector<std::string> generarSolucion();
+    std::vector<std::string> generarSolucion(int sizeN);
 };
 
 #endif // AGREEDY2_H
