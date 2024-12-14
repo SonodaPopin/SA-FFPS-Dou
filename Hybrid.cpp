@@ -25,6 +25,16 @@ void Hybrid::selecMejores(int mejor) {
             cadenasN.erase(cadenasN.begin() + i);
         }
     }
+    int j = 0;
+    while (valoresTOP.size() > sizeM){
+            //string mutado = mutar(cadenasTOP[j]);
+            //valormutado = contarDiferencias(mutado, cadenasOriginales, thr);
+            //valoresN.push_back(valormutado);
+            //cadenasN.push_back(mutado);
+            valoresTOP.erase(valoresTOP.begin() + j);
+            cadenasTOP.erase(cadenasTOP.begin() + j);
+            j++;
+    }
 }
 
 void Hybrid::cruzador(){
@@ -36,13 +46,12 @@ void Hybrid::cruzador(){
 }
 
 void Hybrid::genetizar() {
-    cerr << "genetizando" << endl;
     startTime = system_clock::now();
     while (!checkTime()) {
         int maxValue = *std::max_element(valoresN.begin(), valoresN.end());
         cerr << "mejor obtenida de generacion " << maxValue << endl;
         selecMejores(maxValue);
-        //matador();
+        cruzador();
         if (maxValue > solQuality) {
             solQuality = maxValue;
             bestTime = system_clock::now();
@@ -52,8 +61,8 @@ void Hybrid::genetizar() {
     }
 }
 
-Hybrid::Hybrid(const std::string& ifp, int maxTime, int sizeN, float thr, float alpha) 
-    : maxTime(maxTime), cadenasOriginales(leerArchivo(ifp)), thr(thr), codicia(ifp, alpha){
+Hybrid::Hybrid(const std::string& ifp, int maxTime, int sizeN, int sizeM, float thr, float alpha) 
+    : maxTime(maxTime), cadenasOriginales(leerArchivo(ifp)), thr(thr), codicia(ifp, alpha), sizeM(sizeM){
     cadenasN.resize(sizeN);
     valoresN.resize(sizeN);
     cadenasTOP.resize(sizeN);

@@ -14,6 +14,7 @@ class Hybrid {
 private:
     float thr;                         ///< Umbral para determinar diferencias
     int maxTime;                             ///< Tiempo máximo permitido para la ejecución
+    int sizeM;
     int solQuality = 0;                      ///< Calidad de la mejor solución encontrada
     AGreedy2 codicia;
     std::string bestSol;                     ///< Mejor solución generada
@@ -37,7 +38,7 @@ public:
      * @param ifp Ruta del archivo de entrada.
      * @param maxTime Tiempo máximo para la ejecución del algoritmo.
      */
-    Hybrid(const std::string& ifp, int maxTime, int sizeN, float thr, float alpha);
+    Hybrid(const std::string& ifp, int maxTime, int sizeN, int sizeM, float thr, float alpha);
 
     /**
      * @brief Obtiene la calidad final de la mejor solución encontrada.
