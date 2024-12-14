@@ -12,9 +12,10 @@
 
 class Hybrid {
 private:
-    float thr;                         ///< Umbral para determinar diferencias
+    float thr = 0.8;                         ///< Umbral para determinar diferencias
     int maxTime;                             ///< Tiempo máximo permitido para la ejecución
-    int sizeM;
+    int sizeM = 20;
+    int sizeN = 100;
     int solQuality = 0;                      ///< Calidad de la mejor solución encontrada
     AGreedy2 codicia;
     std::string bestSol;                     ///< Mejor solución generada
