@@ -14,18 +14,6 @@ class LocalSearch {
 private:
     std::vector<std::string> dataset; 
 
-    int calculate_distance(const std::string& s) {
-        int total_distance = 0;
-        for (const auto& str : dataset) {
-            int distance = 0;
-            for (size_t i = 0; i < s.size(); ++i) {
-                if (s[i] != str[i]) distance++;
-            }
-            total_distance += distance;
-        }
-        return total_distance;
-    }
-
     std::string generate_neighbor(const std::string& current_solution) {
         std::string neighbor = current_solution;
         size_t pos = rand() % neighbor.size();
@@ -46,7 +34,7 @@ public:
 
     std::string simulated_annealing(const std::string& current_solution, double initial_temp, double cooling_rate, int max_iterations) {
         std::string best_solution = current_solution;
-        int best_distance = calculate_distance(current_solution);
+        int best_distance = contarDiferencias(current_solution,dataset,0.8);
         std::string current_solution_annealing = current_solution;
         int current_distance = best_distance;
 
@@ -55,7 +43,7 @@ public:
 
         while (temp > 1 && iteration < max_iterations) {
             std::string neighbor = generate_neighbor(current_solution_annealing);
-            int neighbor_distance = calculate_distance(neighbor);
+            int neighbor_distance = contarDiferencias(neighbor,dataset,0.8);
 
             if (neighbor_distance > current_distance || (rand() / double(RAND_MAX)) < exp((current_distance - neighbor_distance) / temp)) {
                 current_solution_annealing = neighbor;
@@ -76,7 +64,7 @@ public:
 
     std::string local_search(const std::string& current_solution, int num_neighbors) {
         std::string best_solution = current_solution;
-        int best_distance = calculate_distance(current_solution);
+        int best_distance = contarDiferencias(current_solution,dataset,0.8);
 
         bool improved = true;
         while (improved) {
@@ -88,7 +76,7 @@ public:
             }
 
             for (const auto& neighbor : neighbors) {
-                int neighbor_distance = calculate_distance(neighbor);
+                int neighbor_distance = contarDiferencias(neighbor,dataset,0.8);
                 if (neighbor_distance > best_distance) {
                     best_solution = neighbor;
                     best_distance = neighbor_distance;
@@ -107,14 +95,17 @@ int main() {
     std::vector<std::string> ifp = leerArchivo(dataset);
     
     LocalSearch ls(ifp);
-    std::string initial_solution = "GGAGAATTATTGTGTTTCCAGGTTGCTGGCAGCGCGCTTGAACGATTAATCAACACGTTGCGTAAAACAGGTCAACTTGTCCAACGTCAACTATCGTCAGCAACGAGGCGGTCCCACGGAAATCTTTAGATGAAGGAAAGCTATCAGTCGGACTCCGAAAGCTGTTTAGTTACCTTGCTTATATCCTACGGATGTACGCGTCTCCTGTCATATCTTGCTACCCACAATGTTTTTTACTGTTGATATCTCGAGATGGGCGAGGGCGAACATATAGCGCTTGCTGGGCCGGTGGGCGGATCA";
+    std::string initial_solution = "GGCCCATTATTCTGGTTCCACCTTTAAGTCACTGTGCTCGGCAGATTAGAAGATCCGATGCGATTGGCCCTAATGGTCCGCAAGCGCGTTGCGCAATTAGATGCTAAGCTGTGTACTCATAACAGCTTGTTGGACGGAAGTTGGTTGTAACATGCGCGCATCTGCGACAAGACTCATCTTAATTCCAGCGCTTGGAGGCGGCTGCGCTCGTAATTCGGTTCGATAACTGAGGAAATTTTTTAATAAACCCTGATTTTAGAGAGCAAAAACAAAGTGGTCGCTGGAGAATTGGGCGGGCGC";
     
     cout << contarDiferencias(initial_solution,ifp,0.8) << endl;
-    std::string best_solution = ls.local_search(initial_solution,100);
+    std::string dou_solution = ls.simulated_annealing(initial_solution,1000,0.999,10000);
+    std::string best_solution = ls.local_search(initial_solution,20);
 
     std::cout << "Mejor solución encontrada: " << best_solution << std::endl;
+    std::cout << "dou solución encontrada: " << dou_solution << std::endl;
 
     cout << contarDiferencias(best_solution,ifp,0.8) << endl;
+    cout << contarDiferencias(dou_solution,ifp,0.8) << endl;
 
     return 0;
 }
