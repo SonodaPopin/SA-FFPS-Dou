@@ -35,9 +35,9 @@ private:
     std::mt19937 gen;                        ///< Generador de números aleatorios
 
     bool checkTime();                        ///< Verifica si el tiempo máximo ha sido alcanzado
-    void Hybrid::selecMejores(int mejor);
-    void Hybrid::cruzador();
-    void Hybrid::genetizar();
+    void selecMejores(int mejor);
+    void cruzador();
+    void genetizar();
 
 public:
     /**

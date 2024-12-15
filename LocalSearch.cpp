@@ -7,7 +7,6 @@
 #include <algorithm>
 #include <random>
 #include <cmath>
-#include "Funciones.cpp"
 #include "Funciones.h"
 #include "LocalSearch.h"
 
@@ -70,7 +69,7 @@ public:
         return best_solution;
     }
 };
-
+/*
 int main() {
     
     string dataset = "D:/Joako/Desktop/Archivos de la U/SistemasAdaptativos/SA-FFPS-Dou/Dataset/100-300-001.txt";
@@ -89,3 +88,4 @@ int main() {
 
     return 0;
 }
+*/
