@@ -49,7 +49,7 @@ std::string AGreedy2::ejecutar() {
         )->first;
 
         double p = probDist(gen);
-        if (p < alpha) {
+        if (p > alpha) {
             std::vector<char> caracteresPosibles;
             for (const auto& par : frecuenciaPosicion) {
                 if (par.first != caracterMenosFrecuente) {

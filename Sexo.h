@@ -38,7 +38,7 @@ public:
      * @param padre2 Segunda cadena parental.
      * @return La cadena resultante que representa al "hijo".
      */
-    std::string sexo(const std::string& padre1, const std::string& padre2, float alpha);
+    std::string sexo(const std::string& padre1, const std::string& padre2, float alpha, int numh);
 };
 
 #endif // SEXO_H
