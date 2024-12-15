@@ -15,17 +15,26 @@ private:
     std::vector<std::string> dataset; 
 
     std::string generate_neighbor(const std::string& current_solution) {
-        std::string neighbor = current_solution;
+    std::string neighbor = current_solution;
+    size_t num_changes = static_cast<size_t>(current_solution.size() * 0.05);
+
+    char alfabeto[] = {'A', 'C', 'G', 'T'};
+    for (size_t i = 0; i < num_changes; ++i) {
         size_t pos = rand() % neighbor.size();
-        char alfabeto[] = {'A', 'C', 'G', 'T'};
+
         char current_char = neighbor[pos];
+
         char new_char;
         do {
             new_char = alfabeto[rand() % 4];
         } while (new_char == current_char);
+
         neighbor[pos] = new_char;
-        return neighbor;
     }
+
+    return neighbor;
+}
+
 
 public:
     LocalSearch(const std::vector<std::string>& data) : dataset(data) {
@@ -63,7 +72,8 @@ public:
     }
 
     std::string local_search(const std::string& current_solution, int num_neighbors) {
-        std::string best_solution = current_solution;
+        std::string best_solution = generate_neighbor(current_solution);
+
         int best_distance = contarDiferencias(current_solution,dataset,0.8);
 
         bool improved = true;
@@ -83,6 +93,7 @@ public:
                     improved = true;
                 }
             }
+    
         }
 
         return best_solution;
@@ -98,14 +109,12 @@ int main() {
     std::string initial_solution = "GGCCCATTATTCTGGTTCCACCTTTAAGTCACTGTGCTCGGCAGATTAGAAGATCCGATGCGATTGGCCCTAATGGTCCGCAAGCGCGTTGCGCAATTAGATGCTAAGCTGTGTACTCATAACAGCTTGTTGGACGGAAGTTGGTTGTAACATGCGCGCATCTGCGACAAGACTCATCTTAATTCCAGCGCTTGGAGGCGGCTGCGCTCGTAATTCGGTTCGATAACTGAGGAAATTTTTTAATAAACCCTGATTTTAGAGAGCAAAAACAAAGTGGTCGCTGGAGAATTGGGCGGGCGC";
     
     cout << contarDiferencias(initial_solution,ifp,0.8) << endl;
-    std::string dou_solution = ls.simulated_annealing(initial_solution,1000,0.999,10000);
-    std::string best_solution = ls.local_search(initial_solution,20);
+
+    std::string best_solution = ls.local_search(initial_solution,10);
 
     std::cout << "Mejor solución encontrada: " << best_solution << std::endl;
-    std::cout << "dou solución encontrada: " << dou_solution << std::endl;
 
     cout << contarDiferencias(best_solution,ifp,0.8) << endl;
-    cout << contarDiferencias(dou_solution,ifp,0.8) << endl;
 
     return 0;
 }
