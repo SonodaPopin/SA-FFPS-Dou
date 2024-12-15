@@ -27,24 +27,29 @@ void Hybrid::selecMejores(int mejor) {
             i++;
         }
     }
-    int j = 0;
     while (valoresTOP.size() > sizeM){
-            //string mutado = mutar(cadenasTOP[j]);
-            //valormutado = contarDiferencias(mutado, cadenasOriginales, thr);
-            //valoresN.push_back(valormutado);
-            //cadenasN.push_back(mutado);
-            valoresTOP.erase(valoresTOP.begin() + j);
-            cadenasTOP.erase(cadenasTOP.begin() + j);
-            j++;
+            size_t index = rand() % valoresTOP.size();
+            string mutado = mutar.local_search(cadenasTOP[index], temp, thr);
+            int valormutado = contarDiferencias(mutado, cadenasOriginales, thr);
+            valoresN.push_back(valormutado);
+            cadenasN.push_back(mutado);
+            valoresTOP.erase(valoresTOP.begin() + index);
+            cadenasTOP.erase(cadenasTOP.begin() + index);
     }
 }
 
 void Hybrid::cruzador(){
     for (int i = 0; i < cadenasN.size(); i++) {
-        //hijo = sexo(cadenasN[i], cadenasTOP[i % cadenasTOP.size()])
-        //cadenasN[i] = hijo;
-        //valoresN[i] = contarDiferencias(cadenasN[i], cadenasOriginales, thr);
+        string hijo = cruce.sexo(cadenasN[i], cadenasTOP[i % cadenasTOP.size()], alpha, temp);
+        cadenasN[i] = hijo;
+        valoresN[i] = contarDiferencias(hijo, cadenasOriginales, thr);
     }
+    for (int i = 0; i < cadenasTOP.size(); i++){
+        valoresN.push_back(valoresTOP[i]);
+        cadenasN.push_back(cadenasTOP[i]);    
+    }
+    valoresTOP.clear();
+    cadenasTOP.clear();
 }
 
 void Hybrid::genetizar() {
@@ -64,7 +69,7 @@ void Hybrid::genetizar() {
 }
 
 Hybrid::Hybrid(const std::string& ifp, int maxTime, int sizeN, int sizeM, float thr, float alpha) 
-    : maxTime(maxTime), cadenasOriginales(leerArchivo(ifp)), thr(thr), codicia(ifp, alpha), sizeM(sizeM){
+    : maxTime(maxTime), cadenasOriginales(leerArchivo(ifp)), thr(thr), alpha(alpha), codicia(ifp, alpha), cruce(ifp), mutar(cadenasOriginales), sizeM(sizeM), sizeN(sizeN){
     cadenasN.resize(sizeN);
     valoresN.resize(sizeN);
     cadenasTOP.resize(sizeN);
@@ -73,6 +78,7 @@ Hybrid::Hybrid(const std::string& ifp, int maxTime, int sizeN, int sizeM, float 
     for (int i = 0; i < sizeN; i++) {
         valoresN[i] = contarDiferencias(cadenasN[i], cadenasOriginales, thr);
     }
+    genetizar();
 }
 
 int Hybrid::getFinalQuality() {

@@ -9,6 +9,7 @@
 #include <cmath>
 #include "Funciones.cpp"
 #include "Funciones.h"
+#include "LocalSearch.h"
 
 class LocalSearch {
 private:

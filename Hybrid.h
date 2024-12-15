@@ -8,6 +8,8 @@
 #include <random>
 #include "Funciones.h"
 #include "AGreedy2.h"
+#include "Sexo.h"
+#include "LocalSearch.h"
 #pragma once
 
 class Hybrid {
@@ -16,8 +18,12 @@ private:
     int maxTime;                             ///< Tiempo máximo permitido para la ejecución
     int sizeM = 20;
     int sizeN = 100;
+    int temp = 100;
     int solQuality = 0;                      ///< Calidad de la mejor solución encontrada
+    float alpha;
     AGreedy2 codicia;
+    Sexo cruce;
+    LocalSearch mutar;
     std::string bestSol;                     ///< Mejor solución generada
     std::vector<std::string> cadenasOriginales; ///< Cadenas originales leídas del archivo
     std::vector<std::string> cadenasN;    ///< Población actual de soluciones
