@@ -16,6 +16,7 @@ using namespace std;
  */
 Sexo::Sexo(const string& archivo) : ifp(archivo) {
     dataset = leerArchivo(ifp);
+    std::cerr << "Sexo" << std::endl;
 }
 
 /**

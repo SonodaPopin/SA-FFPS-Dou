@@ -32,7 +32,6 @@ private:
     std::vector<int> valoresTOP;            ///< Calidad de las soluciones en `cadenas100`
     std::chrono::system_clock::time_point startTime; ///< Tiempo de inicio del algoritmo
     std::chrono::system_clock::time_point bestTime = std::chrono::system_clock::time_point::min(); ///< Tiempo de la mejor solución
-    std::mt19937 gen;                        ///< Generador de números aleatorios
 
     bool checkTime();                        ///< Verifica si el tiempo máximo ha sido alcanzado
     void selecMejores(int mejor);
