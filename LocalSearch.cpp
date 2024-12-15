@@ -41,59 +41,29 @@ public:
         srand(static_cast<unsigned int>(time(0)));
     }
 
-    std::string simulated_annealing(const std::string& current_solution, double initial_temp, double cooling_rate, int max_iterations) {
-        std::string best_solution = current_solution;
-        int best_distance = contarDiferencias(current_solution,dataset,0.8);
-        std::string current_solution_annealing = current_solution;
-        int current_distance = best_distance;
-
-        double temp = initial_temp;
-        int iteration = 0;
-
-        while (temp > 1 && iteration < max_iterations) {
-            std::string neighbor = generate_neighbor(current_solution_annealing);
-            int neighbor_distance = contarDiferencias(neighbor,dataset,0.8);
-
-            if (neighbor_distance > current_distance || (rand() / double(RAND_MAX)) < exp((current_distance - neighbor_distance) / temp)) {
-                current_solution_annealing = neighbor;
-                current_distance = neighbor_distance;
-
-                if (current_distance > best_distance) {
-                    best_solution = current_solution_annealing;
-                    best_distance = current_distance;
-                }
-            }
-
-            temp *= cooling_rate; 
-            iteration++;
-        }
-
-        return best_solution;
-    }
-
-    std::string local_search(const std::string& current_solution, int num_neighbors) {
+    std::string local_search(const std::string& current_solution, int temp, float thr) {
         std::string best_solution = generate_neighbor(current_solution);
 
-        int best_distance = contarDiferencias(current_solution,dataset,0.8);
+        int best_distance = contarDiferencias(current_solution,dataset,thr);
 
         bool improved = true;
-        while (improved) {
+        while (improved || temp >= 1) {
             improved = false;
             std::vector<std::string> neighbors;
 
-            for (int i = 0; i < num_neighbors; ++i) {
+            for (int i = 0; i < 2; ++i) {
                 neighbors.push_back(generate_neighbor(best_solution));
             }
 
             for (const auto& neighbor : neighbors) {
-                int neighbor_distance = contarDiferencias(neighbor,dataset,0.8);
+                int neighbor_distance = contarDiferencias(neighbor,dataset,thr);
                 if (neighbor_distance > best_distance) {
                     best_solution = neighbor;
                     best_distance = neighbor_distance;
                     improved = true;
                 }
             }
-    
+            temp -=1;
         }
 
         return best_solution;
@@ -110,7 +80,7 @@ int main() {
     
     cout << contarDiferencias(initial_solution,ifp,0.8) << endl;
 
-    std::string best_solution = ls.local_search(initial_solution,10);
+    std::string best_solution = ls.local_search(initial_solution,10,0.8);
 
     std::cout << "Mejor solución encontrada: " << best_solution << std::endl;
 

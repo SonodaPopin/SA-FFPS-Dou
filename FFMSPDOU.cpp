@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
     int tiempoMax = 0; 
     int sizeN = 100;      
     int sizeM = 30;       
-    float thr = 0.1f;     
+    float thr = 0.8f;     
     float alpha = 0.1f;   
 
     for (int i = 1; i < argc; i++) {

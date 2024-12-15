@@ -41,7 +41,7 @@ int Sexo::contarFrecuencia(char caracter, int posicion) {
  * @param padre2 Segunda cadena parental.
  * @return La cadena resultante que representa al "hijo".
  */
-string Sexo::sexo(const string& padre1, const string& padre2) {
+string Sexo::sexo(const string& padre1, const string& padre2, float alpha) {
     srand(static_cast<unsigned>(time(0)));
     dh;
     mdh = 0;
@@ -52,8 +52,6 @@ string Sexo::sexo(const string& padre1, const string& padre2) {
 
     string hijo;
     string mhijo;
-
-    alpha = 0.95;
 
     int longitud = padre1.size();
 
@@ -106,8 +104,10 @@ main(){
     std::vector<std::string> ifp = leerArchivo(dataset);
     
     Sexo sexo_obj(dataset);
+
+    float alpha = 0.8;
     
-    std::string hijo = sexo_obj.sexo(padre1, padre2);
+    std::string hijo = sexo_obj.sexo(padre1, padre2, alpha);
     
     cout << "Hijo generado: " << hijo << endl;
     cout << "padre1 " << contarDiferencias(padre1,ifp,0.8) << endl;

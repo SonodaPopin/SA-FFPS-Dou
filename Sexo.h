@@ -14,7 +14,7 @@ private:
     std::string ifp;                         ///< Ruta del archivo de entrada.
     std::vector<std::string> dataset;        ///< Dataset con las cadenas para cálculo de frecuencias.
     std::vector<std::string> hijos;
-    double alpha;
+    float alpha;
     int dpdou, dh, mdh, dp1, dp2;
 
     /**
@@ -38,7 +38,7 @@ public:
      * @param padre2 Segunda cadena parental.
      * @return La cadena resultante que representa al "hijo".
      */
-    std::string sexo(const std::string& padre1, const std::string& padre2);
+    std::string sexo(const std::string& padre1, const std::string& padre2, float alpha);
 };
 
 #endif // SEXO_H
