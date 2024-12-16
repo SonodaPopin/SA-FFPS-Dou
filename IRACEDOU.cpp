@@ -18,16 +18,17 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
     if (argc < 5) {
-        cerr << "Uso: " << argv[0] << " <seed> <tiempo> <otra-cosa> <archivo> [-n <sizeN>] [-m <sizeM>] [-thr <umbral>] [-alpha <alpha>]" << endl;
+        cerr << "Uso: " << argv[0] << " <seed> <tiempo> <otra-cosa> <archivo> [-n <sizeN>] [-m <sizeM>] [-thr <umbral>] [-alpha <alpha>] [-temp <temp>]" << endl;
         return 1;
     }
 
     std::string archivo = argv[4];  // Cuarto argumento: archivo
-    int tiempoMax = stoi(argv[2]); // Segundo argumento: tiempo máximo
+    int tiempoMax = 10; // Segundo argumento: tiempo máximo
     int sizeN = 100;               // Default
     int sizeM = 30;                // Default
     float thr = 0.8;               // Default
     float alpha = 0.9;             // Default
+    int temp = 10;
 
     for (int i = 5; i < argc; i++) { // Procesar parámetros opcionales a partir del 5to argumento
         if (string(argv[i]) == "-n" && i + 1 < argc) {
@@ -38,7 +39,9 @@ int main(int argc, char* argv[]) {
             thr = stof(argv[++i]);
         } else if (string(argv[i]) == "-alpha" && i + 1 < argc) {
             alpha = stof(argv[++i]);
-        } else {
+        } else if (string(argv[i]) == "-temp" && i + 1 < argc) {
+            temp = stoi(argv[++i]);  // Convierte temp 
+        }else {
             cerr << "Argumento no reconocido: " << argv[i] << endl;
             return 1;
         }
@@ -49,7 +52,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    Hybrid hibrido(archivo, tiempoMax, sizeN, sizeM, thr, alpha);
+    Hybrid hibrido(archivo, tiempoMax, sizeN, sizeM, thr, alpha, temp);
     cout << hibrido.getFinalQuality() << " " << hibrido.getFinalTime() << endl;
 
     return 0;

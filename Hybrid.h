@@ -14,13 +14,11 @@
 
 class Hybrid {
 private:
-    float thr = 0.8;                         ///< Umbral para determinar diferencias
+    float thr, alpha;                         ///< Umbral para determinar diferencias
     int maxTime;                             ///< Tiempo máximo permitido para la ejecución
-    int sizeM = 20;
-    int sizeN = 100;
-    int temp = 10;
+    int sizeN, sizeM;
+    int temp;
     int solQuality = 0;                      ///< Calidad de la mejor solución encontrada
-    float alpha;
     AGreedy2 codicia;
     Sexo cruce;
     LocalSearch mutar;
@@ -44,7 +42,7 @@ public:
      * @param ifp Ruta del archivo de entrada.
      * @param maxTime Tiempo máximo para la ejecución del algoritmo.
      */
-    Hybrid(const std::string& ifp, int maxTime, int sizeN, int sizeM, float thr, float alpha);
+    Hybrid(const std::string& ifp, int maxTime, int sizeN, int sizeM, float thr, float alpha, int temp);
 
     /**
      * @brief Obtiene la calidad final de la mejor solución encontrada.

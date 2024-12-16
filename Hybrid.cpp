@@ -67,8 +67,8 @@ void Hybrid::genetizar() {
 }
 
 
-Hybrid::Hybrid(const std::string& ifp, int maxTime, int sizeN, int sizeM, float thr, float alpha) 
-    : maxTime(maxTime), cadenasOriginales(leerArchivo(ifp)), thr(thr), alpha(alpha), codicia(ifp, alpha), cruce(ifp), mutar(leerArchivo(ifp)), sizeM(sizeM), sizeN(sizeN){
+Hybrid::Hybrid(const std::string& ifp, int maxTime, int sizeN, int sizeM, float thr, float alpha, int temp) 
+    : maxTime(maxTime), cadenasOriginales(leerArchivo(ifp)), thr(thr), alpha(alpha), codicia(ifp, alpha), cruce(ifp), mutar(leerArchivo(ifp)), sizeM(sizeM), sizeN(sizeN), temp(temp){
     cadenasN.resize(sizeN);
     valoresN.resize(sizeN);
     cadenasN = codicia.generarSolucion(sizeN);

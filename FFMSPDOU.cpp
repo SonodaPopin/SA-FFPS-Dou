@@ -18,7 +18,7 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
     if (argc < 5) {
-        cerr << "Uso: " << argv[0] << " -i <archivo> -t <tiempo> [-n <sizeN>] [-m <sizeM>] [-thr <umbral>] [-alpha <alpha>]" << endl;
+        cerr << "Uso: " << argv[0] << " -i <archivo> -t <tiempo> [-n <sizeN>] [-m <sizeM>] [-thr <umbral>] [-alpha <alpha>] [-temp <temp>]" << endl;
         return 1;
     }
 
@@ -27,7 +27,8 @@ int main(int argc, char* argv[]) {
     int sizeN = 100;      
     int sizeM = 30;       
     float thr = 0.8;     
-    float alpha = 0.9;   
+    float alpha = 0.9;  
+    int temp = 10; 
 
     for (int i = 1; i < argc; i++) {
         if (string(argv[i]) == "-i" && i + 1 < argc) {
@@ -42,7 +43,9 @@ int main(int argc, char* argv[]) {
             thr = stof(argv[++i]);  // Convierte el umbral thr
         } else if (string(argv[i]) == "-alpha" && i + 1 < argc) {
             alpha = stof(argv[++i]);  // Convierte alpha
-        } else {
+        } else if (string(argv[i]) == "-temp" && i + 1 < argc) {
+            temp = stoi(argv[++i]);  // Convierte temp
+        }else {
             cerr << "Argumento no reconocido: " << argv[i] << endl;
             return 1;
         }
@@ -52,7 +55,7 @@ int main(int argc, char* argv[]) {
         cerr << "Archivo o tiempo inválidos." << endl;
         return 1;
     }
-    Hybrid hibrido(archivo, tiempoMax, sizeN, sizeM, thr, alpha);
+    Hybrid hibrido(archivo, tiempoMax, sizeN, sizeM, thr, alpha, temp);
     cout << "Mejor calidad obtenida: " << hibrido.getFinalQuality() 
     << " Tiempo usado para obtenerla: " << hibrido.getFinalTime() << " segundos." << endl;
 
