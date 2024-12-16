@@ -53,7 +53,8 @@ int main(int argc, char* argv[]) {
     }
 
     Hybrid hibrido(archivo, tiempoMax, sizeN, sizeM, thr, alpha, temp);
-    cout << hibrido.getFinalQuality() << " " << hibrido.getFinalTime() << endl;
+    int iracequality = hibrido.getFinalQuality() * -1;
+    cout << iracequality << " " << hibrido.getFinalTime() << endl;
 
     return 0;
 }

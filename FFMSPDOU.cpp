@@ -23,12 +23,12 @@ int main(int argc, char* argv[]) {
     }
 
     std::string archivo;
-    int tiempoMax = 0; 
-    int sizeN = 100;      
-    int sizeM = 30;       
+    int tiempoMax = 10; 
+    int sizeN = 70;      
+    int sizeM = 25;       
     float thr = 0.8;     
-    float alpha = 0.9;  
-    int temp = 10; 
+    float alpha = 0.92;  
+    int temp = 5; 
 
     for (int i = 1; i < argc; i++) {
         if (string(argv[i]) == "-i" && i + 1 < argc) {

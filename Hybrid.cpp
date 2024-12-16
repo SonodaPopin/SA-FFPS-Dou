@@ -59,6 +59,7 @@ void Hybrid::genetizar() {
         selecMejores(maxValue); // Usa el valor actualizado en cada iteración
         cruzador();
         maxValue = *std::max_element(valoresN.begin(), valoresN.end()); // Actualización del mismo maxValue
+        // cout << "Mejor TOP: " << maxValue << endl;
         if (maxValue > solQuality) {
             solQuality = maxValue;
             bestTime = system_clock::now();
