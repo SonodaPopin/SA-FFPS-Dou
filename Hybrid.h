@@ -18,7 +18,7 @@ private:
     int maxTime;                             ///< Tiempo máximo permitido para la ejecución
     int sizeM = 20;
     int sizeN = 100;
-    int temp = 100;
+    int temp = 10;
     int solQuality = 0;                      ///< Calidad de la mejor solución encontrada
     float alpha;
     AGreedy2 codicia;

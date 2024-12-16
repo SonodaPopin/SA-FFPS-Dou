@@ -74,7 +74,6 @@ AGreedy2::AGreedy2(const std::string& ifp, float alpha)
     datos = leerArchivo(ifp);
     caracteresFrecuentes = obtenerCaracteresFrecuentes();
     srand(static_cast<unsigned>(time(0)));
-    std::cerr << "Greedy" << std::endl;
 }
 
 std::vector<std::string> AGreedy2::generarSolucion(int sizeN) {

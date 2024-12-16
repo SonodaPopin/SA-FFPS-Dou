@@ -16,7 +16,7 @@ bool Hybrid::checkTime() {
     return duration_cast<seconds>(tiempoActual - startTime).count() >= maxTime;
 }
 
-void Hybrid::selecMejores(int mejor) {
+void Hybrid::selecMejores(int mejor) { 
     for (int i = 0; i < valoresN.size();) {
         if (valoresN[i] == mejor){
             valoresTOP.push_back(valoresN[i]);
@@ -46,7 +46,7 @@ void Hybrid::cruzador(){
     }
     for (int i = 0; i < cadenasTOP.size(); i++){
         valoresN.push_back(valoresTOP[i]);
-        cadenasN.push_back(cadenasTOP[i]);    
+        cadenasN.push_back(cadenasTOP[i]);  
     }
     valoresTOP.clear();
     cadenasTOP.clear();
@@ -54,11 +54,12 @@ void Hybrid::cruzador(){
 
 void Hybrid::genetizar() {
     startTime = system_clock::now();
+    int maxValue = *std::max_element(valoresN.begin(), valoresN.end()); // Declaración única de maxValue
+    cerr << "Mejor calidad inicial (AGreedy): " << maxValue << endl;
     while (!checkTime()) {
-        int maxValue = *std::max_element(valoresN.begin(), valoresN.end());
-        cerr << "mejor obtenida de generacion " << maxValue << endl;
-        selecMejores(maxValue);
+        selecMejores(maxValue); // Usa el valor actualizado en cada iteración
         cruzador();
+        maxValue = *std::max_element(valoresN.begin(), valoresN.end()); // Actualización del mismo maxValue
         if (maxValue > solQuality) {
             solQuality = maxValue;
             bestTime = system_clock::now();
@@ -68,14 +69,11 @@ void Hybrid::genetizar() {
     }
 }
 
+
 Hybrid::Hybrid(const std::string& ifp, int maxTime, int sizeN, int sizeM, float thr, float alpha) 
     : maxTime(maxTime), cadenasOriginales(leerArchivo(ifp)), thr(thr), alpha(alpha), codicia(ifp, alpha), cruce(ifp), mutar(leerArchivo(ifp)), sizeM(sizeM), sizeN(sizeN){
-    cout << "SizeN " << sizeN;
-    cout << "SizeM " << sizeM;  
     cadenasN.resize(sizeN);
     valoresN.resize(sizeN);
-    cadenasTOP.resize(sizeN);
-    valoresTOP.resize(sizeN);
     cadenasN = codicia.generarSolucion(sizeN);
     for (int i = 0; i < sizeN; i++) {
         valoresN[i] = contarDiferencias(cadenasN[i], cadenasOriginales, thr);

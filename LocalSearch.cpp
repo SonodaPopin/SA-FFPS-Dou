@@ -13,7 +13,6 @@
 // Constructor de la clase
 LocalSearch::LocalSearch(const std::vector<std::string>& data) : dataset(data) {
     srand(static_cast<unsigned int>(time(0)));
-    std::cerr << "LocalSearch" << std::endl;
 }
 
 // Método privado: genera un vecino a partir de la solución actual
