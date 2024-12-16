@@ -69,7 +69,7 @@ void Hybrid::genetizar() {
 }
 
 Hybrid::Hybrid(const std::string& ifp, int maxTime, int sizeN, int sizeM, float thr, float alpha) 
-    : maxTime(maxTime), cadenasOriginales(leerArchivo(ifp)), thr(thr), alpha(alpha), codicia(ifp, alpha), cruce(ifp), mutar(cadenasOriginales), sizeM(sizeM), sizeN(sizeN){
+    : maxTime(maxTime), cadenasOriginales(leerArchivo(ifp)), thr(thr), alpha(alpha), codicia(ifp, alpha), cruce(ifp), mutar(leerArchivo(ifp)), sizeM(sizeM), sizeN(sizeN){
     cout << "SizeN " << sizeN;
     cout << "SizeM " << sizeM;  
     cadenasN.resize(sizeN);

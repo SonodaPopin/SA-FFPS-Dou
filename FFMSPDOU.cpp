@@ -12,6 +12,7 @@
 #include "Hybrid.h"
 #include "Sexo.h"
 #include "Funciones.h"
+#include "LocalSearch.h"
 
 using namespace std;
 
@@ -51,7 +52,6 @@ int main(int argc, char* argv[]) {
         cerr << "Archivo o tiempo inválidos." << endl;
         return 1;
     }
-
     Hybrid hibrido(archivo, tiempoMax, sizeN, sizeM, thr, alpha);
     cout << "Mejor calidad obtenida: " << hibrido.getFinalQuality() 
          << " Tiempo usado para obtenerla: " << hibrido.getFinalTime() << " segundos." << endl;
