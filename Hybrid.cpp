@@ -55,7 +55,6 @@ void Hybrid::cruzador(){
 void Hybrid::genetizar() {
     startTime = system_clock::now();
     int maxValue = *std::max_element(valoresN.begin(), valoresN.end()); // Declaración única de maxValue
-    cerr << "Mejor calidad inicial (AGreedy): " << maxValue << endl;
     while (!checkTime()) {
         selecMejores(maxValue); // Usa el valor actualizado en cada iteración
         cruzador();
@@ -63,8 +62,6 @@ void Hybrid::genetizar() {
         if (maxValue > solQuality) {
             solQuality = maxValue;
             bestTime = system_clock::now();
-            cout << "Mejor calidad obtenida: " << solQuality 
-                 << " Tiempo usado para obtenerla: " << getFinalTime() << " segundos." << endl;
         }
     }
 }

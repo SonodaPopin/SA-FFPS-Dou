@@ -54,7 +54,7 @@ int main(int argc, char* argv[]) {
     }
     Hybrid hibrido(archivo, tiempoMax, sizeN, sizeM, thr, alpha);
     cout << "Mejor calidad obtenida: " << hibrido.getFinalQuality() 
-         << " Tiempo usado para obtenerla: " << hibrido.getFinalTime() << " segundos." << endl;
+    << " Tiempo usado para obtenerla: " << hibrido.getFinalTime() << " segundos." << endl;
 
     return 0;
 }
