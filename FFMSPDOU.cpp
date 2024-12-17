@@ -16,6 +16,83 @@
 
 using namespace std;
 
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+#include <string>
+#include <fstream>
+#include <unordered_map>
+#include <chrono>
+#include <algorithm>
+#include <random>
+#include "AGreedy2.h"
+#include "Hybrid.h"
+#include "Sexo.h"
+#include "Funciones.h"
+#include "LocalSearch.h"
+
+using namespace std;
+
+double calcularMedia(const std::vector<double>& valores) {
+    double suma = std::accumulate(valores.begin(), valores.end(), 0.0);
+    return suma / valores.size();
+}
+
+    /**
+     * @brief Calcula la desviación estándar de un vector de doubles.
+     * @return La desviación estándar.
+     */
+double calcularDesviacionEstandar(const std::vector<double>& valores, double media) {
+    double sumaCuadrados = 0.0;
+    for (double valor : valores) {
+        sumaCuadrados += std::pow(valor - media, 2);
+    }
+    return std::sqrt(sumaCuadrados / valores.size());
+}
+
+void loopHybrid(int N, int M, float umbral, int tiempoMax){
+
+    std::string archivo;
+    int sizeN = 80;      
+    int sizeM = 40;       
+    float thr = 0.8;     
+    float alpha = 0.92;  
+    int temp = 6; 
+        std::vector<double> calidades;
+        std::vector<double> tiempos;
+        std::string j = "000";
+        for (int i = 1; i <= 100; ++i) {
+            if (i < 10){
+                j = "00" +std::to_string(i);
+            }else if(i < 100){
+                j = "0" +std::to_string(i); 
+            }else{
+                j = "100";
+            }
+            std::string archivo = "D:/Joako/Desktop/Archivos de la U/SistemasAdaptativos/GreedysDou/Dataset/" + std::to_string(N) + "-" + std::to_string(M) + "-" + j + ".txt";
+
+            Hybrid hibrido(archivo, tiempoMax, sizeN, sizeM, umbral, alpha,temp);
+            cout << "Mejor calidad obtenida: " << hibrido.getFinalQuality() 
+            << " Tiempo usado para obtenerla: " << hibrido.getFinalTime() << " segundos." << endl;
+        }
+        double mediaCalidad = calcularMedia(calidades);
+        double desviacionCalidad = calcularDesviacionEstandar(calidades, mediaCalidad);
+        double tiempoPromedio = calcularMedia(tiempos);
+        std::cout << "Media Calidad Hybrid: " << mediaCalidad << std::endl;
+        std::cout << "Desviacion Estandar Calidad Hybrid: " << desviacionCalidad << std::endl;
+        std::cout << "Tiempo Promedio Hybrid: " << tiempoPromedio << std::endl;
+    }
+
+    /**
+     * @brief Función main que realiza las pruebas
+     */
+int main() {
+
+   loopHybrid(100,300,0.8,10);
+    return 0;
+}
+/*
 int main(int argc, char* argv[]) {
     if (argc < 5) {
         cerr << "Uso: " << argv[0] << " -i <archivo> -t <tiempo> [-n <sizeN>] [-m <sizeM>] [-thr <umbral>] [-alpha <alpha>] [-temp <temp>]" << endl;
@@ -60,4 +137,4 @@ int main(int argc, char* argv[]) {
     << " Tiempo usado para obtenerla: " << hibrido.getFinalTime() << " segundos." << endl;
 
     return 0;
-}
+}*/
