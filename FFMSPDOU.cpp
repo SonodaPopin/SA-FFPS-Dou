@@ -16,24 +16,6 @@
 
 using namespace std;
 
-#include <iostream>
-#include <vector>
-#include <cstdlib>
-#include <ctime>
-#include <string>
-#include <fstream>
-#include <unordered_map>
-#include <chrono>
-#include <algorithm>
-#include <random>
-#include "AGreedy2.h"
-#include "Hybrid.h"
-#include "Sexo.h"
-#include "Funciones.h"
-#include "LocalSearch.h"
-
-using namespace std;
-
 double calcularMedia(const std::vector<double>& valores) {
     double suma = std::accumulate(valores.begin(), valores.end(), 0.0);
     return suma / valores.size();
@@ -75,6 +57,8 @@ void loopHybrid(int N, int M, float umbral, int tiempoMax){
             Hybrid hibrido(archivo, tiempoMax, sizeN, sizeM, umbral, alpha,temp);
             cout << "Mejor calidad obtenida: " << hibrido.getFinalQuality() 
             << " Tiempo usado para obtenerla: " << hibrido.getFinalTime() << " segundos." << endl;
+            calidades.push_back(hibrido.getFinalQuality());
+            tiempos.push_back(hibrido.getFinalTime());
         }
         double mediaCalidad = calcularMedia(calidades);
         double desviacionCalidad = calcularDesviacionEstandar(calidades, mediaCalidad);
